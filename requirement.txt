@@ -1,0 +1,16 @@
+streamlit
+streamlit_webrtc
+cv2
+numpy
+tensorflow
+joblib
+sys
+os
+pandas 
+keras_vggface
+keras.models
+tensorflow.keras.preprocessing.image
+warnings
+av
+PIL
+io
