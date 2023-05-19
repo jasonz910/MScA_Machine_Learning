@@ -8,5 +8,7 @@ joblib
 pandas
 av
 Pillow
+Keras
+keras_vggface
 keras_applications
 scikit-learn
