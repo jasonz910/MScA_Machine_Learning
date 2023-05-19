@@ -2,10 +2,11 @@ streamlit
 streamlit-webrtc
 opencv-python-headless
 numpy
-tensorflow
+tensorflow==1.15
+Keras==2.2.4
 joblib
 pandas
 Keras-vggface
 Pillow
 av
-keras_applications
+keras_applications==1.0.8
