@@ -8,3 +8,4 @@ pandas
 Keras-vggface
 av
 Pillow
+keras_applications==1.0.8
