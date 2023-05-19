@@ -9,3 +9,4 @@ pandas
 av
 Pillow
 keras_applications
+scikit-learn
