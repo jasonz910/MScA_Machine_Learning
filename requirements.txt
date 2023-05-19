@@ -2,7 +2,7 @@ streamlit
 streamlit-webrtc
 opencv-python-headless
 numpy
-tensorflow
+tensorflow==1.15.0
 joblib
 pandas
 Keras-vggface
