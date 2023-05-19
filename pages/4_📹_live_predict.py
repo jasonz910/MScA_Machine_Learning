@@ -74,7 +74,6 @@ def prepare_download(img):
 
 class VideoProcessor:
     
-    @st.cache_data
     def recv(self, frame):
 
         frm = frame.to_ndarray(format = 'bgr24')
