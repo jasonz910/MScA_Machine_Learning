@@ -8,3 +8,4 @@ pandas
 Keras-vggface
 Pillow
 av
+keras_applications
