@@ -8,3 +8,4 @@ joblib
 pandas
 av
 Pillow
+keras_applications
