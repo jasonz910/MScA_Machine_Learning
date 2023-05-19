@@ -1,10 +1,10 @@
 streamlit
 streamlit-webrtc
-opencv-python
+opencv-python-headless
 numpy
 tensorflow
 joblib
 pandas
 Keras-vggface
 Pillow
-pyav
+av
