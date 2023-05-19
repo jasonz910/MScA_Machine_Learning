@@ -80,57 +80,57 @@ st.title("🎈Wecome to JZ's BMI Prediction📷")
 
 st.caption('The BMI predicted from this site is based on learning your face features. This site does not take responsibility for providing accurate and credible BMI results. Thank you! 😊')
 
-upload, photo, live = st.tabs(['Upload Your Photo','Take a Photo','Video Live'])
+#upload, photo, live = st.tabs(['Upload Your Photo','Take a Photo','Video Live'])
 
-with upload:
+#with upload:
 
-    upload_files = st.file_uploader("Upload your photo to predict:", accept_multiple_files=True)
+upload_files = st.file_uploader("Upload your photo to predict:", accept_multiple_files=True)
 
-    for upload_file in upload_files:
+for upload_file in upload_files:
 
-        index = 1
+    index = 1
 
-        pic_upload = np.array(Image.open(upload_file))
+    pic_upload = np.array(Image.open(upload_file))
 
-        predict_bmi(pic_upload)
+    predict_bmi(pic_upload)
 
-        pil_pic_upload = Image.fromarray(pic_upload)
-        st.image(pil_pic_upload, use_column_width=True, clamp=True)
+    pil_pic_upload = Image.fromarray(pic_upload)
+    st.image(pil_pic_upload, use_column_width=True, clamp=True)
 
-        pic_download = prepare_download(pil_pic_upload)
+    pic_download = prepare_download(pil_pic_upload)
+
+    st.download_button(
+        label="Download Prediction",
+        data=pic_download,
+        file_name='Image'+str(index)+'_with_BMI.jpg',
+        mime='image/jpeg',
+    )
     
-        st.download_button(
-            label="Download Prediction",
-            data=pic_download,
-            file_name='Image'+str(index)+'_with_BMI.jpg',
-            mime='image/jpeg',
-        )
-        
-        index += 1
+    index += 1
 
 
-with photo:
+# with photo:
 
-    picture = st.camera_input("Take a photo to predict:")
+#     picture = st.camera_input("Take a photo to predict:")
 
-    if picture is not None:
+#     if picture is not None:
 
-        picture_taken = np.array(Image.open(picture))
+#         picture_taken = np.array(Image.open(picture))
 
-        predict_bmi(picture_taken)
+#         predict_bmi(picture_taken)
 
-        pil_pic_taken = Image.fromarray(picture_taken)
-        st.image(pil_pic_taken, use_column_width=True, clamp=True)
+#         pil_pic_taken = Image.fromarray(picture_taken)
+#         st.image(pil_pic_taken, use_column_width=True, clamp=True)
 
-        photo_download = prepare_download(pil_pic_taken)
+#         photo_download = prepare_download(pil_pic_taken)
 
-        st.download_button(
-            label="Download Prediction",
-            data=photo_download,
-            file_name='Photo_with_BMI.jpg',
-            mime='image/jpeg',
-        )
+#         st.download_button(
+#             label="Download Prediction",
+#             data=photo_download,
+#             file_name='Photo_with_BMI.jpg',
+#             mime='image/jpeg',
+#         )
 
-with live:
+# with live:
 
-    webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
+#     webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
