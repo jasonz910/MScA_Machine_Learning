@@ -74,12 +74,7 @@ def prepare_download(img):
 
 
 ###############################
-st.set_page_config(
-    page_title="Take Your Photo for BMI Prediction",
-    page_icon="📸",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.title("Take a Photo to Predict BMI")
 
 picture = st.camera_input("Take a photo to predict:")
 

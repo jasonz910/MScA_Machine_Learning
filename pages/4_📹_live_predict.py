@@ -84,11 +84,6 @@ class VideoProcessor:
         return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
     
 ###############################
-st.set_page_config(
-    page_title="Predict BMI Live",
-    page_icon="📹",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.title("Predict Your BMI Live")
 
 webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)

@@ -74,13 +74,8 @@ def prepare_download(img):
 
 
 #####################
-st.set_page_config(
-    page_title="Upload Your Photo for BMI Prediction",
-    page_icon="📷",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
 
+st.title("Upload your Photo to Predict BMI")
 
 upload_files = st.file_uploader("Upload your photo to predict:", accept_multiple_files=True)
 
