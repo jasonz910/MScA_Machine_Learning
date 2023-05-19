@@ -6,8 +6,5 @@ tensorflow
 Keras
 joblib
 pandas
-Keras-vggface
 av
 Pillow
-keras_applications
-keras_preprocessing
