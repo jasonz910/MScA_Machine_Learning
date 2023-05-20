@@ -10,7 +10,6 @@ import tensorflow as tf
 import joblib
 import sys
 import os
-from twilio.rest import Client
 import pandas as pd 
 from keras_vggface.utils import preprocess_input
 from keras_vggface import VGGFace
@@ -81,12 +80,6 @@ class VideoProcessor:
         return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
     
 ###############################
-account_sid = os.environ['TWILIO_ACCOUNT_SID']
-auth_token = os.environ['TWILIO_AUTH_TOKEN']
-client = Client(account_sid, auth_token)
-
-token = client.tokens.create()
-
 st.title('Predict Your BMI Live')
 
-webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": token.ice_servers})
+webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
