@@ -101,7 +101,7 @@ upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 for upload_file in upload_files:
     index = 1
 
-    pic_upload = np.array(Image.open(upload_file))
+    pic_upload = np.array(Image.open(upload_file).convert('RGB'))
     bmi_pred = predict_bmi(pic_upload)
     pil_pic_upload = Image.fromarray(pic_upload)
 

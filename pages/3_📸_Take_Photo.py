@@ -110,12 +110,7 @@ if picture is not None:
 
         photo_download = prepare_download(pil_pic_taken)
 
-        st.download_button(
-            label="Download Prediction",
-            data=photo_download,
-            file_name='Photo_with_BMI.jpg',
-            mime='image/jpeg',
-        )
+       
     
     with result:
         if len(bmi_pred)==0:
@@ -129,6 +124,14 @@ if picture is not None:
             for i in range(len(bmi_pred)):
                 st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
                 bmi_segment(bmi_pred[i])
+
+        if len(bmi_pred)!=0:
+            st.download_button(
+                label="Download Prediction",
+                data=photo_download,
+                file_name='Photo_with_BMI.jpg',
+                mime='image/jpeg',
+            )
 
 hide_default_format = """
        <style>
