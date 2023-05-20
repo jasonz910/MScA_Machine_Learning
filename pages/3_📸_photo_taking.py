@@ -21,11 +21,11 @@ import av
 from PIL import Image
 import io
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def load_svr():
     return joblib.load('svr_model.pkl')
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def load_vggface():
     vggface = VGGFace(model='vgg16', include_top=True, input_shape=(224, 224, 3), pooling='avg')
     return Model(inputs=vggface.input, outputs=vggface.get_layer('fc6').output)
@@ -34,7 +34,7 @@ def load_vggface():
 svr_model = load_svr()
 vggface_model = load_vggface()
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def get_fc6_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 

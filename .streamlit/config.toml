@@ -1,5 +1,5 @@
 [server]
-headless = True
+headless = true
 
 [theme]
 primaryColor="#7875D1"
