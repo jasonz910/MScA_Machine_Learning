@@ -2,8 +2,8 @@
 headless = true
 
 [theme]
-primaryColor="#956055"
-backgroundColor="#EBCEC8"
-secondaryBackgroundColor="#D6A095"
-textColor="#B92708"
+primaryColor="#D0D0D0"
+backgroundColor="#F9F9F9"
+secondaryBackgroundColor="#E4E2E2"
+textColor="#9C9C9C"
 font="monospace"
