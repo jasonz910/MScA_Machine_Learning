@@ -20,6 +20,7 @@ warnings.filterwarnings("ignore")
 import av
 from PIL import Image
 import io
+from turn import get_ice_servers
 
 @st.cache_resource(show_spinner=False)
 def load_svr():
@@ -82,7 +83,7 @@ class VideoProcessor:
 ###############################
 st.title('Predict Your BMI Live')
 
-webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
+webrtc_streamer(key="live predict", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": get_ice_servers()},)
 
 hide_default_format = """
        <style>
