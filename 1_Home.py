@@ -56,16 +56,15 @@ st.write('👈👈👈Or you can predict your BMI from your face using three way
 st.markdown("""
     <style>
     .footer {
-    position: fixed;
+    position: staric;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: red;
-    color: white;
+    color: #B92708;
     text-align: center;
     }
     </style>
     <div class="footer">
-    <p>Footer Text Here</p>
+    <p>All rights reserved by Jason Zhu. Only use for MSCA 31009 Machine Learning & Predictive Analytics Class @ UChicago.</p>
     </div>
     """, unsafe_allow_html=True)
