@@ -53,18 +53,9 @@ st.write(' ')
 st.write('👈👈👈Or you can predict your BMI from your face using three ways from the sidebar left :)')
 
 
-st.markdown("""
-    <style>
-    .footer {
-    position: sticky;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: #B92708;
-    text-align: center;
-    }
-    </style>
-    <div class="footer">
-    <p>All rights reserved by Jason Zhu. Only use for MSCA 31009 Machine Learning & Predictive Analytics Class @ UChicago.</p>
-    </div>
-    """, unsafe_allow_html=True)
+hide_default_format = """
+       <style>
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
