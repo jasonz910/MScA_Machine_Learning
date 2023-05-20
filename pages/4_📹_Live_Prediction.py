@@ -132,18 +132,17 @@ if ctx.video_transformer:
                 st.warning("No frames available yet.")
         
         with result:
-            if bmi_pred:
-                if len(bmi_pred)==0:
-                    st.markdown("Sorry, we don't detect any faces. Please re-take your photo.")
-                elif len(bmi_pred)==1:
-                    st.markdown('1 face is detected')
-                    st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
-                    bmi_segment(bmi_pred[0])
-                else:
-                    st.markdown(f'{len(bmi_pred)} faces are detected')
-                    for i in range(len(bmi_pred)):
-                        st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
-                        bmi_segment(bmi_pred[i])
+            if len(bmi_pred)==1:
+                st.markdown('1 face is detected')
+                st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+                bmi_segment(bmi_pred[0])
+            elif len(bmi_pred)>1:
+                st.markdown(f'{len(bmi_pred)} faces are detected')
+                for i in range(len(bmi_pred)):
+                    st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
+                    bmi_segment(bmi_pred[i])
+            else:
+                st.markdown("Sorry, something went wrong. Please re-snapshot your photo.")
 
             if len(bmi_pred)!=0:
                 st.download_button(

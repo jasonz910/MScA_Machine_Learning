@@ -45,7 +45,7 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-#@st.cache_resource
+#@st.cache_data
 def predict_bmi(frame):
     pred_bmi = []
 
