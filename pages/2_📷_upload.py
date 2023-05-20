@@ -77,7 +77,7 @@ def prepare_download(img):
 
 st.title("Upload your Photo to Predict BMI")
 
-upload_files = st.file_uploader("Upload your photo to predict:", accept_multiple_files=True)
+upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 
 for upload_file in upload_files:
 
@@ -88,7 +88,7 @@ for upload_file in upload_files:
     predict_bmi(pic_upload)
 
     pil_pic_upload = Image.fromarray(pic_upload)
-    st.image(pil_pic_upload, use_column_width=True, clamp=True)
+    st.image(pil_pic_upload, width=400, clamp=True)
 
     pic_download = prepare_download(pil_pic_upload)
 
