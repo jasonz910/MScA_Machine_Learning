@@ -95,9 +95,10 @@ if ctx.video_transformer:
             ctx.video_transformer.pred_bmi = pred_bmi
 
         if out_image is not None:
-            st.write("Output image:")
-            st.image(out_image, channels="BGR")
             st.write('Predicted BMI:')
             st.write(pred_bmi)
+            st.write("Output image:")
+            st.image(out_image, channels="BGR")
+
         else:
             st.warning("No frames available yet.")
