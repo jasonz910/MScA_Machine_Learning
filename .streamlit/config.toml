@@ -3,7 +3,7 @@ headless = true
 
 [theme]
 primaryColor="#4B47E9"
-backgroundColor="#A09EF0"
-secondaryBackgroundColor="#141263"
-textColor="#4B47E9"
+backgroundColor="#EBCEC8"
+secondaryBackgroundColor="#D6A095"
+textColor="#956055"
 font="sans serif"
