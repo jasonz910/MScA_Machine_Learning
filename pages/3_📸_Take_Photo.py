@@ -91,7 +91,7 @@ def bmi_segment(bmi):
     elif bmi>40:
         st.write('**Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞**')
 
-###############################
+################################  PAGE CONTENT  ################################
 
 st.markdown("<h1 style='text-align: center; color: #B92708;'>Take a Photo to Predict BMI</h1>", unsafe_allow_html=True)
 
@@ -107,11 +107,8 @@ if picture is not None:
     
     with photo:
         st.image(pil_pic_taken, use_column_width='auto', clamp=True)
-
         photo_download = prepare_download(pil_pic_taken)
 
-       
-    
     with result:
         if len(bmi_pred)==0:
             st.markdown("Sorry, we don't detect any faces. Please re-take your photo.")

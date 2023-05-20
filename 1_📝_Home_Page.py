@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# ###############################
+################################  PAGE CONTENT  ################################
 
 st.set_page_config(
     page_title="🎈Wecome to JZ's BMI Prediction Site📷",
@@ -41,17 +41,13 @@ with cal:
             st.markdown('Please enter valid numbers.')
 
 ref.subheader("BMI Reference")
-
 df = pd.DataFrame({'BMI':['below 18.5', '18.5 - 25', '25 - 30', '30 - 35', '35 - 40', 'above 40'],
                    'WEIGHT STATUS':['Underweight', 'Normal', 'Overweight', 'Moderately obese', 'Severely obese', 'Very severely obese']}).reset_index(drop=True)
-
 with ref:
     st.table(df)
 
 st.write(' ')
-st.write(' ')
 st.write('👈👈👈Or you can predict your BMI from your face using three ways from the sidebar on the left.😊')
-
 
 hide_default_format = """
        <style>

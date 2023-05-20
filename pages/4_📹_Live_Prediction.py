@@ -107,7 +107,7 @@ def bmi_segment(bmi):
     elif bmi>40:
         st.write('**Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞**')
 
-###############################
+################################  PAGE CONTENT  ################################
 
 st.markdown("<h1 style='text-align: center; color: #B92708;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
 
@@ -117,7 +117,6 @@ if ctx.video_transformer:
     snap = st.button("Snapshot")
     if snap:
         with ctx.video_transformer.frame_lock:
-            #out_image = ctx.video_transformer.out_image
             out_image = cv2.cvtColor(ctx.video_transformer.out_image, cv2.COLOR_BGR2RGB)
             pil_out_image = Image.fromarray(out_image)
             bmi_pred = ctx.video_transformer.pred_bmi
@@ -133,26 +132,30 @@ if ctx.video_transformer:
                 st.warning("No frames available yet.")
         
         with result:
-            # if pred_bmi:
-            #     st.write("Predicted BMI:")
-            #     for bmi in pred_bmi:
-            #     st.write(bmi)
-            if len(bmi_pred)==0:
-                st.markdown("Sorry, we don't detect any faces. Please re-take your photo.")
-            elif len(bmi_pred)==1:
-                st.markdown('1 face is detected')
-                st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
-                bmi_segment(bmi_pred[0])
-            else:
-                st.markdown(f'{len(bmi_pred)} faces are detected')
-                for i in range(len(bmi_pred)):
-                    st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
-                    bmi_segment(bmi_pred[i])
+            if bmi_pred:
+                if len(bmi_pred)==0:
+                    st.markdown("Sorry, we don't detect any faces. Please re-take your photo.")
+                elif len(bmi_pred)==1:
+                    st.markdown('1 face is detected')
+                    st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+                    bmi_segment(bmi_pred[0])
+                else:
+                    st.markdown(f'{len(bmi_pred)} faces are detected')
+                    for i in range(len(bmi_pred)):
+                        st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
+                        bmi_segment(bmi_pred[i])
 
             if len(bmi_pred)!=0:
                 st.download_button(
                     label="Download Prediction",
                     data=snap_download,
-                    file_name='Photo_with_BMI.jpg',
+                    file_name='Live_BMI_Prediction.jpg',
                     mime='image/jpeg',
                 )
+
+hide_default_format = """
+       <style>
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
