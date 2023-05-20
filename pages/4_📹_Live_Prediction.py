@@ -16,6 +16,7 @@ warnings.filterwarnings("ignore")
 import av
 from PIL import Image
 import io
+from turn import get_ice_servers
 import threading
 from typing import Union
 
@@ -84,7 +85,7 @@ class VideoProcessor:
 ###############################
 st.title('Predict Your BMI Live')
 
-ctx = webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
+ctx = webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={'iceServers': get_ice_servers()})
 
 if ctx.video_transformer:
     snap = st.button("Snapshot")
