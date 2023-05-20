@@ -58,7 +58,7 @@ def predict_bmi(frame):
             )
 
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 1)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
         image = frame[y:y+h, x:x+w]
         img = image.copy()
         img = cv2.resize(img, (224, 224))
