@@ -126,7 +126,7 @@ if ctx.video_transformer:
         with snap:
             if out_image is not None:
                 st.write("Your Snapshot:")
-                st.image(pil_out_image, channels="BGR")
+                st.image(pil_out_image, use_column_width='auto', clamp=True)
                 snap_download = prepare_download(pil_out_image)
             else:
                 st.warning("No frames available yet.")
