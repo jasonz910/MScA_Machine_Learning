@@ -1,7 +1,3 @@
-filename = '/home/appuser/venv/lib/python3.9/site-packages/keras_vggface/models.py'
-text = open(filename).read()
-open(filename, 'w+').write(text.replace('keras.engine.topology', 'tensorflow.keras.utils'))
-
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer
 import cv2
@@ -20,24 +16,22 @@ warnings.filterwarnings("ignore")
 import av
 from PIL import Image
 import io
-from turn import get_ice_servers
 import threading
 from typing import Union
 
-@st.cache_resource(show_spinner=False)
+@st.cache_resource
 def load_svr():
     return joblib.load('svr_model.pkl')
 
-@st.cache_resource(show_spinner=False)
+@st.cache_resource
 def load_vggface():
     vggface = VGGFace(model='vgg16', include_top=True, input_shape=(224, 224, 3), pooling='avg')
     return Model(inputs=vggface.input, outputs=vggface.get_layer('fc6').output)
 
-
 svr_model = load_svr()
 vggface_model = load_vggface()
 
-@st.cache_resource(show_spinner=False)
+@st.cache_resource
 def get_fc6_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 
@@ -49,8 +43,9 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-#@st.cache_resource
 def predict_bmi(frame):
+    pred_bmi = []
+
     faces = faceCascade.detectMultiScale(
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
             scaleFactor = 1.15,
@@ -59,57 +54,52 @@ def predict_bmi(frame):
             )
 
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 1)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         image = frame[y:y+h, x:x+w]
         img = image.copy()
         img = cv2.resize(img, (224, 224))
         img = np.array(img).astype(np.float64)
         features = get_fc6_feature(img)
         preds = svr_model.predict(features)
-        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 2)
+        pred_bmi.append(preds[0])
+        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 2, (255, 255, 255), 2)
 
-#@st.cache_data
-def prepare_download(img):
-    buf = io.BytesIO()
-    img.save(buf, format='JPEG')
-    image_bytes = buf.getvalue()
-    return image_bytes
+    return pred_bmi, frame
 
 class VideoProcessor:
     def __init__(self):
         self.frame_lock = threading.Lock()
         self.out_image = None
+        self.pred_bmi = []
 
     def recv(self, frame):
         frm = frame.to_ndarray(format='bgr24')
-        predict_bmi(frm)
+        pred_bmi, frame_with_bmi = predict_bmi(frm)
         with self.frame_lock:
-            self.out_image = frm
+            self.out_image = frame_with_bmi
+            self.pred_bmi = pred_bmi
 
-        return av.VideoFrame.from_ndarray(frm, format='bgr24') 
-    
+        return av.VideoFrame.from_ndarray(frame_with_bmi, format='bgr24') 
+
 ###############################
+st.title('Predict Your BMI Live')
 
-st.markdown("<h1 style='text-align: center; color: #B92708;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
-
-ctx = webrtc_streamer(key="live predict", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": get_ice_servers()},)
+ctx = webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
 
 if ctx.video_transformer:
     snap = st.button("Snapshot")
     if snap:
         with ctx.video_transformer.frame_lock:
             out_image = ctx.video_transformer.out_image
+            pred_bmi = ctx.video_transformer.pred_bmi
 
         if out_image is not None:
             st.write("Output image:")
             st.image(out_image, channels="BGR")
+
+            if pred_bmi:
+                st.write("Predicted BMI:")
+                for bmi in pred_bmi:
+                    st.write(bmi)
         else:
             st.warning("No frames available yet.")
-
-
-hide_default_format = """
-       <style>
-       footer {visibility: hidden;}
-       </style>
-       """
-st.markdown(hide_default_format, unsafe_allow_html=True)
