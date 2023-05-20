@@ -46,7 +46,7 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-@st.cache_resource
+#@st.cache_resource
 def predict_bmi(frame):
     faces = faceCascade.detectMultiScale(
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
@@ -65,7 +65,7 @@ def predict_bmi(frame):
         preds = svr_model.predict(features)
         cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 2)
 
-@st.cache_data
+#@st.cache_data
 def prepare_download(img):
     buf = io.BytesIO()
     img.save(buf, format='JPEG')
