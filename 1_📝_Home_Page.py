@@ -42,7 +42,7 @@ with cal:
 
 ref.subheader("BMI Reference")
 
-df = pd.DataFrame({'BMI':['16 ~ 18.5', '18.5 ~ 25', '25 ~ 30', '30 ~ 35', '35 ~ 40', '40~'],
+df = pd.DataFrame({'BMI':['below 18.5', '18.5 - 25', '25 - 30', '30 - 35', '35 - 40', 'above 40'],
                    'WEIGHT STATUS':['Underweight', 'Normal', 'Overweight', 'Moderately obese', 'Severely obese', 'Very severely obese']})
 
 with ref:
