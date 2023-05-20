@@ -13,6 +13,7 @@ st.set_page_config(
 st.markdown("<h1 style='text-align: center; color: #B92708;'>BMI Prediction</h1>", unsafe_allow_html=True)
 
 st.caption('This site only gives you BMI prediction. We do not take responsibility for providing accurate and credible BMI results. Thank you!')
+st.caption('All rights reserved by Jason Zhu @ UChicago. If you have any questions, please contact jasonzhu@uchicago.edu')
 
 cal, ref = st.columns([2, 1])
 
