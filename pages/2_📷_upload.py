@@ -66,7 +66,7 @@ def predict_bmi(frame):
         features = get_fc6_feature(img)
         preds = svr_model.predict(features)
         pred_bmi.append(preds[0])
-        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 3, (255, 255, 255), 2)
+        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 2, (255, 255, 255), 2)
 
     return pred_bmi
 
@@ -76,6 +76,20 @@ def prepare_download(img):
     img.save(buf, format='JPEG')
     image_bytes = buf.getvalue()
     return image_bytes
+
+def bmi_segment(bmi):
+    if bmi<18.5:
+        st.write('**Sorry you are UNDERWEIGHT. Eat More!!🥩**')
+    elif 18.5<=bmi<=25:
+        st.write('**Hurray! Your BMI looks good! Keep Going!💪**')
+    elif 25<bmi<30:
+        st.write('**Sorry you are OVERWEIGHT! Be careful about your diet.🥦**')
+    elif 30<=bmi<35:
+        st.write('**Hey, You are MODERATELY OBESE. Eat healthy and exercise more please.🥗**')
+    elif 35<=bmi<=40:
+        st.write('**Oh no! You are SEVERELY OBESE. Please eat healthy and exercise more.🏃**')
+    elif bmi>40:
+        st.write('**Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞**')
 
 
 #####################
@@ -110,9 +124,11 @@ for upload_file in upload_files:
         elif len(bmi_pred)==1:
             st.markdown('1 face is detected')
             st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+            bmi_segment(bmi_pred[0])
         else:
             st.markdown(f'{len(bmi_pred)} faces are detected')
             for i in range(len(bmi_pred)):
                 st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
+                bmi_segment(bmi_pred[i])
     
     index += 1
