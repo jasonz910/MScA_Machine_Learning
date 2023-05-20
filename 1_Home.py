@@ -24,27 +24,26 @@ with cal:
     if st.button('Predict My BMI'):
         if height>0 and weight>0:
             bmi = weight/((height/100)**2)
-            st.markdown(f'**Your BMI from your height and weight is: {bmi}**')
+            st.markdown(f'Your BMI from your height and weight is: **{bmi}**')
             if bmi<18.5:
-                st.write('Sorry you are UNDERWEIGHT. Eat More!!🥩')
+                st.write('**Sorry you are UNDERWEIGHT. Eat More!!🥩**')
             elif 18.5<=bmi<=25:
-                st.write('Hurray! Your BMI looks good! Keep Going!💪')
+                st.write('**Hurray! Your BMI looks good! Keep Going!💪**')
             elif 25<bmi<30:
-                st.write('Sorry you are OVERWEIGHT! Be careful about your diet.🥦')
+                st.write('**Sorry you are OVERWEIGHT! Be careful about your diet.🥦**')
             elif 30<=bmi<35:
-                st.write('Hey, You are MODERATELY OBESE. Eat healthy and exercise more please.🥗')
+                st.write('**Hey, You are MODERATELY OBESE. Eat healthy and exercise more please.🥗**')
             elif 35<=bmi<=40:
-                st.write('Oh no! You are SEVERELY OBESE. Please eat healthy and exercise more.🏃')
+                st.write('**Oh no! You are SEVERELY OBESE. Please eat healthy and exercise more.🏃**')
             elif bmi>40:
-                st.write('Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞')
+                st.write('**Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞**')
         else:
-            st.write('Please enter valid numbers! 🙏🏻')
+            st.markdown('Please enter valid numbers.')
 
 ref.subheader("BMI Reference")
 
-index = {'BMI':['16 ~ 18.5', '18.5 ~ 25', '25 ~ 30', '30 ~ 35', '35 ~ 40', '40~'],
-        'WEIGHT STATUS':['Underweight', 'Normal', 'Overweight', 'Moderately obese', 'Severely obese', 'Very severely obese']}
-df = pd.DataFrame(data=index)
+df = pd.DataFrame({'BMI':['16 ~ 18.5', '18.5 ~ 25', '25 ~ 30', '30 ~ 35', '35 ~ 40', '40~'],
+                   'WEIGHT STATUS':['Underweight', 'Normal', 'Overweight', 'Moderately obese', 'Severely obese', 'Very severely obese']})
 
 with ref:
     st.table(df)
