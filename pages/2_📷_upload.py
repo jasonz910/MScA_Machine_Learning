@@ -96,7 +96,8 @@ for upload_file in upload_files:
 
     st.image(pil_pic_upload)
 
-    st.write('Your predicted BMI is:', bmi_pred)
+    for bmi in bmi_pred:
+        st.write('Your predicted BMI is:', bmi_pred)
 
     pic_download = prepare_download(pil_pic_upload)
 
