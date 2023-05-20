@@ -21,6 +21,8 @@ import av
 from PIL import Image
 import io
 from turn import get_ice_servers
+import threading
+from typing import Union
 
 @st.cache_resource(show_spinner=False)
 def load_svr():
@@ -74,17 +76,36 @@ def prepare_download(img):
     return image_bytes
 
 class VideoProcessor:
-    
+    def __init__(self):
+        self.frame_lock = threading.Lock()
+        self.out_image = None
+
     def recv(self, frame):
-        frm = frame.to_ndarray(format = 'bgr24')
+        frm = frame.to_ndarray(format='bgr24')
         predict_bmi(frm)
-        return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
+        with self.frame_lock:
+            self.out_image = frm
+
+        return av.VideoFrame.from_ndarray(frm, format='bgr24') 
     
 ###############################
 
 st.markdown("<h1 style='text-align: center; color: #B92708;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
 
-webrtc_streamer(key="live predict", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": get_ice_servers()},)
+ctx = webrtc_streamer(key="live predict", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": get_ice_servers()},)
+
+if ctx.video_transformer:
+    snap = st.button("Snapshot")
+    if snap:
+        with ctx.video_transformer.frame_lock:
+            out_image = ctx.video_transformer.out_image
+
+        if out_image is not None:
+            st.write("Output image:")
+            st.image(out_image, channels="BGR")
+        else:
+            st.warning("No frames available yet.")
+
 
 hide_default_format = """
        <style>
