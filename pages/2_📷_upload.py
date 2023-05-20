@@ -96,8 +96,10 @@ for upload_file in upload_files:
 
     st.image(pil_pic_upload)
 
-    for bmi in bmi_pred:
-        st.write(f'Your predicted BMI is: **{round(bmi,2)}**')
+    st.markdown(f'{len(bmi_pred)} faces are detected')
+
+    for i in range(len(bmi_pred)):
+        st.write(f'BMI {i} is: **{round(bmi_pred[i],2)}**')
 
     pic_download = prepare_download(pil_pic_upload)
 
