@@ -24,7 +24,7 @@ with cal:
     if st.button('Predict My BMI'):
         if height>0 and weight>0:
             bmi = weight/((height/100)**2)
-            st.write('Your BMI from your height and weight is:', bmi)
+            st.markdown('Your BMI from your height and weight is: {bmi}')
             if bmi<18.5:
                 st.write('Sorry you are UNDERWEIGHT. Eat More!!🥩')
             elif 18.5<=bmi<=25:
