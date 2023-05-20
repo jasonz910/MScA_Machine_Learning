@@ -1,2 +1,9 @@
 [server]
-headless = true
+headless = True
+
+[theme]
+primaryColor="#7875D1"
+backgroundColor="#2E1F78"
+secondaryBackgroundColor="#B1AFBB"
+textColor="#FFFFFF"
+font="sans serif"
