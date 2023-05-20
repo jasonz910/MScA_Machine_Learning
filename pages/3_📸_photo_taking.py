@@ -48,6 +48,8 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 #@st.cache_resource
 def predict_bmi(frame):
+    pred_bmi = []
+
     faces = faceCascade.detectMultiScale(
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
             scaleFactor = 1.15,
@@ -56,14 +58,17 @@ def predict_bmi(frame):
             )
 
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 1)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         image = frame[y:y+h, x:x+w]
         img = image.copy()
         img = cv2.resize(img, (224, 224))
         img = np.array(img).astype(np.float64)
         features = get_fc6_feature(img)
         preds = svr_model.predict(features)
-        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 2)
+        pred_bmi.append(preds[0])
+        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 2, (255, 255, 255), 2)
+
+    return pred_bmi
 
 #@st.cache_data
 def prepare_download(img):
@@ -72,26 +77,58 @@ def prepare_download(img):
     image_bytes = buf.getvalue()
     return image_bytes
 
+def bmi_segment(bmi):
+    if bmi<18.5:
+        st.write('**Sorry you are UNDERWEIGHT. Eat More!!🥩**')
+    elif 18.5<=bmi<=25:
+        st.write('**Hurray! Your BMI looks good! Keep Going!💪**')
+    elif 25<bmi<30:
+        st.write('**Sorry you are OVERWEIGHT! Be careful about your diet.🥦**')
+    elif 30<=bmi<35:
+        st.write('**Hey, You are MODERATELY OBESE. Eat healthy and exercise more please.🥗**')
+    elif 35<=bmi<=40:
+        st.write('**Oh no! You are SEVERELY OBESE. Please eat healthy and exercise more.🏃**')
+    elif bmi>40:
+        st.write('**Watch out! You are VERY SEVERELY OBESE. Please reach out your doctor for professional advice on your health.😞**')
 
 ###############################
+
 st.title("Take a Photo to Predict BMI")
 
-picture = st.camera_input("Take a photo to predict:")
+picture = st.camera_input("👇Take Photo here:")
 
 if picture is not None:
 
     picture_taken = np.array(Image.open(picture))
-
-    predict_bmi(picture_taken)
-
+    bmi_pred = predict_bmi(picture_taken)
     pil_pic_taken = Image.fromarray(picture_taken)
-    st.image(pil_pic_taken, use_column_width=True, clamp=True)
 
-    photo_download = prepare_download(pil_pic_taken)
+    photo, result = st.columns([1, 1])
+    
+    with photo:
+        st.image(pil_pic_taken, use_column_width='auto', clamp=True)
 
-    st.download_button(
-        label="Download Prediction",
-        data=photo_download,
-        file_name='Photo_with_BMI.jpg',
-        mime='image/jpeg',
-    )
+        photo_download = prepare_download(pil_pic_taken)
+
+        st.download_button(
+            label="Download Prediction",
+            data=photo_download,
+            file_name='Photo_with_BMI.jpg',
+            mime='image/jpeg',
+        )
+    
+    with result:
+        if len(bmi_pred)==0:
+            st.markdown("Sorry, we don't detect any faces. Please re-take your photo.")
+        elif len(bmi_pred)==1:
+            st.markdown('1 face is detected')
+            st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+            bmi_segment(bmi_pred[0])
+        else:
+            st.markdown(f'{len(bmi_pred)} faces are detected')
+            for i in range(len(bmi_pred)):
+                st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
+                bmi_segment(bmi_pred[i])
+    
+    
+
