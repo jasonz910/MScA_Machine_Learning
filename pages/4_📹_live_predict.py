@@ -23,7 +23,7 @@ import io
 
 @st.cache_resource
 def load_svr():
-    return joblib.load('svr_model.pkl')
+    return joblib.load('../svr_model.pkl')
 
 @st.cache_resource
 def load_vggface():
@@ -41,7 +41,7 @@ def get_fc6_feature(img):
     fc6_feature = vggface_model.predict(img)
     return fc6_feature
 
-cascPath = "haarcascade_frontalface_default.xml"
+cascPath = "../haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -83,6 +83,6 @@ class VideoProcessor:
         return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
     
 ###############################
-st.title("Predict Your BMI Live")
+st.title('Predict Your BMI Live')
 
 webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)

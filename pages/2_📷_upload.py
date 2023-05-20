@@ -23,7 +23,7 @@ import io
 
 @st.cache_resource
 def load_svr():
-    return joblib.load('svr_model.pkl')
+    return joblib.load('../svr_model.pkl')
 
 @st.cache_resource
 def load_vggface():
@@ -41,7 +41,7 @@ def get_fc6_feature(img):
     fc6_feature = vggface_model.predict(img)
     return fc6_feature
 
-cascPath = "haarcascade_frontalface_default.xml"
+cascPath = "../haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
