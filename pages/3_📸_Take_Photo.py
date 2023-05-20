@@ -91,17 +91,13 @@ if ctx.video_transformer:
     if snap:
         with ctx.video_transformer.frame_lock:
             out_image = ctx.video_transformer.out_image
-            pred_bmi = ctx.video_transformer.pred_bmi
+            pred_bmi, out_image = predict_bmi(out_image)
+            ctx.video_transformer.pred_bmi = pred_bmi
 
         if out_image is not None:
             st.write("Output image:")
             st.image(out_image, channels="BGR")
             st.write('Predicted BMI:')
             st.write(pred_bmi)
-
-            # if pred_bmi:
-            #     st.write("Predicted BMI:")
-            #     for bmi in pred_bmi:
-            #         st.write(bmi)
         else:
             st.warning("No frames available yet.")
