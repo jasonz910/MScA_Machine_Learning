@@ -117,7 +117,8 @@ if ctx.video_transformer:
     snap = st.button("Snapshot")
     if snap:
         with ctx.video_transformer.frame_lock:
-            out_image = ctx.video_transformer.out_image
+            #out_image = ctx.video_transformer.out_image
+            out_image = cv2.cvtColor(ctx.video_transformer.out_image, cv2.COLOR_BGR2RGB)
             pil_out_image = Image.fromarray(out_image)
             bmi_pred = ctx.video_transformer.pred_bmi
 
