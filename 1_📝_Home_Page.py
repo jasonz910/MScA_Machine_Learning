@@ -10,9 +10,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.title("BMI Prediction")
+st.markdown("<h1 style='text-align: center; color: #B92708;'>BMI Prediction</h1>", unsafe_allow_html=True)
 
-st.caption('This site only gives you BMI prediction. We do not take responsibility for providing accurate and credible BMI results. Thank you! ☺️')
+st.caption('This site only gives you BMI prediction. We do not take responsibility for providing accurate and credible BMI results. Thank you!')
 
 cal, ref = st.columns([2, 1])
 
@@ -50,7 +50,7 @@ with ref:
 
 st.write(' ')
 st.write(' ')
-st.write('👈👈👈Or you can predict your BMI from your face using three ways from the sidebar on the left. 😊')
+st.write('👈👈👈Or you can predict your BMI from your face using three ways from the sidebar on the left.😊')
 
 
 hide_default_format = """
