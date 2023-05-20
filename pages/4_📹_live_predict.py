@@ -46,7 +46,7 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-#@st.cache_resource
+@st.cache_resource
 def predict_bmi(frame):
     faces = faceCascade.detectMultiScale(
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
@@ -75,11 +75,8 @@ def prepare_download(img):
 class VideoProcessor:
     
     def recv(self, frame):
-
         frm = frame.to_ndarray(format = 'bgr24')
-
-        frm = predict_bmi(frm)
-
+        predict_bmi(frm)
         return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
     
 ###############################
