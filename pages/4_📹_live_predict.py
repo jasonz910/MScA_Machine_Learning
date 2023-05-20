@@ -82,4 +82,4 @@ class VideoProcessor:
 ###############################
 st.title('Predict Your BMI Live')
 
-webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
+webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
