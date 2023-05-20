@@ -46,7 +46,7 @@ df = pd.DataFrame({'BMI':['below 18.5', '18.5 - 25', '25 - 30', '30 - 35', '35 -
                    'WEIGHT STATUS':['Underweight', 'Normal', 'Overweight', 'Moderately obese', 'Severely obese', 'Very severely obese']})
 
 with ref:
-    st.table(df)
+    st.table(df.reset_index(drop=True))
 
 st.write(' ')
 st.write(' ')
