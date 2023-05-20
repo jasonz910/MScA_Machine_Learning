@@ -93,8 +93,10 @@ for upload_file in upload_files:
     bmi_pred = predict_bmi(pic_upload)
 
     pil_pic_upload = Image.fromarray(pic_upload)
+
     st.image(pil_pic_upload)
-    st.write(bmi_pred)
+
+    st.write('Your predicted BMI is:', bmi_pred)
 
     pic_download = prepare_download(pil_pic_upload)
 
