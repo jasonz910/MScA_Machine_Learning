@@ -48,6 +48,8 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 #@st.cache_resource
 def predict_bmi(frame):
+    pred_bmi = []
+
     faces = faceCascade.detectMultiScale(
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
             scaleFactor = 1.15,
@@ -63,7 +65,10 @@ def predict_bmi(frame):
         img = np.array(img).astype(np.float64)
         features = get_fc6_feature(img)
         preds = svr_model.predict(features)
+        pred_bmi.append(preds)
         cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 2)
+
+    return pred_bmi
 
 #@st.cache_data
 def prepare_download(img):
@@ -85,10 +90,11 @@ for upload_file in upload_files:
 
     pic_upload = np.array(Image.open(upload_file))
 
-    predict_bmi(pic_upload)
+    bmi_pred = predict_bmi(pic_upload)
 
     pil_pic_upload = Image.fromarray(pic_upload)
-    st.image(pil_pic_upload, width=400, clamp=True)
+    st.image(pil_pic_upload)
+    st.write(bmi_pred)
 
     pic_download = prepare_download(pil_pic_upload)
 
