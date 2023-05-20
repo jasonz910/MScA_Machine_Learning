@@ -94,7 +94,7 @@ def bmi_segment(bmi):
 
 #####################
 
-st.markdown("<h1 style='text-align: center; color: #B92708;'>Upload Your Photo to Predict BMI</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #B92708;'>Upload Your Photo to Predict</h1>", unsafe_allow_html=True)
 
 upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 
@@ -111,13 +111,7 @@ for upload_file in upload_files:
         st.image(pil_pic_upload, use_column_width='auto', clamp=True)
 
         pic_download = prepare_download(pil_pic_upload)
-        st.download_button(
-            label="Download Prediction",
-            data=pic_download,
-            file_name='Image'+str(index)+'_with_BMI.jpg',
-            mime='image/jpeg',
-        )
-    
+
     with result:
         if len(bmi_pred)==0:
             st.markdown("Sorry, we don't detect any faces. Please re-upload your photo.")
@@ -130,6 +124,14 @@ for upload_file in upload_files:
             for i in range(len(bmi_pred)):
                 st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
                 bmi_segment(bmi_pred[i])
+
+        if len(bmi_pred)!=0:
+            st.download_button(
+                label="Download Prediction",
+                data=pic_download,
+                file_name='Image'+str(index)+'_with_BMI.jpg',
+                mime='image/jpeg',
+            )
     
     index += 1
 
