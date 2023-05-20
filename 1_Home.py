@@ -51,3 +51,21 @@ with ref:
 st.write(' ')
 st.write(' ')
 st.write('👈👈👈Or you can predict your BMI from your face using three ways from the sidebar left :)')
+
+
+st.markdown("""
+    <style>
+    .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    }
+    </style>
+    <div class="footer">
+    <p>Footer Text Here</p>
+    </div>
+    """, unsafe_allow_html=True)
