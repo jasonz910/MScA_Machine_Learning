@@ -81,7 +81,8 @@ class VideoProcessor:
         return av.VideoFrame.from_ndarray(frm, format = 'bgr24') 
     
 ###############################
-st.title('Predict Your BMI Live')
+
+st.markdown("<h1 style='text-align: center; color: #B92708;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
 
 webrtc_streamer(key="live predict", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={"iceServers": get_ice_servers()},)
 

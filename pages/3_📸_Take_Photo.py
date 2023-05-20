@@ -93,7 +93,7 @@ def bmi_segment(bmi):
 
 ###############################
 
-st.title("Take a Photo to Predict BMI")
+st.markdown("<h1 style='text-align: center; color: #B92708;'>Take a Photo to Predict BMI</h1>", unsafe_allow_html=True)
 
 picture = st.camera_input("👇Take Photo here:")
 

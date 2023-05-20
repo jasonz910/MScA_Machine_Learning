@@ -94,7 +94,7 @@ def bmi_segment(bmi):
 
 #####################
 
-st.title("Upload your Photo to Predict BMI")
+st.markdown("<h1 style='text-align: center; color: #B92708;'>Upload Your Photo to Predict BMI</h1>", unsafe_allow_html=True)
 
 upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 
