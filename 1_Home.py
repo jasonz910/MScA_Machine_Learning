@@ -56,7 +56,7 @@ st.write('👈👈👈Or you can predict your BMI from your face using three way
 st.markdown("""
     <style>
     .footer {
-    position: static;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
