@@ -85,34 +85,34 @@ st.title("Upload your Photo to Predict BMI")
 upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 
 for upload_file in upload_files:
-
     index = 1
 
     pic_upload = np.array(Image.open(upload_file))
-
     bmi_pred = predict_bmi(pic_upload)
-
     pil_pic_upload = Image.fromarray(pic_upload)
 
-    st.image(pil_pic_upload)
-
-    if len(bmi_pred)==0:
-        st.markdown("Sorry, we don't detect any faces. Please re-upload your photo.")
-    elif len(bmi_pred)==1:
-        st.markdown('1 face is detected')
-        st.write('The BMI of this face is: **{round(bmi_pred[0],2)}**')
-    else:
-        st.markdown(f'{len(bmi_pred)} faces are detected')
-        for i in range(len(bmi_pred)):
-            st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
-
-    pic_download = prepare_download(pil_pic_upload)
-
-    st.download_button(
-        label="Download Prediction",
-        data=pic_download,
-        file_name='Image'+str(index)+'_with_BMI.jpg',
-        mime='image/jpeg',
-    )
+    photo, result = st.columns([1, 1])
+    
+    with photo:
+        st.image(pil_pic_upload)
+        
+        pic_download = prepare_download(pil_pic_upload)
+        st.download_button(
+            label="Download Prediction",
+            data=pic_download,
+            file_name='Image'+str(index)+'_with_BMI.jpg',
+            mime='image/jpeg',
+        )
+    
+    with result:
+        if len(bmi_pred)==0:
+            st.markdown("Sorry, we don't detect any faces. Please re-upload your photo.")
+        elif len(bmi_pred)==1:
+            st.markdown('1 face is detected')
+            st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+        else:
+            st.markdown(f'{len(bmi_pred)} faces are detected')
+            for i in range(len(bmi_pred)):
+                st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
     
     index += 1
