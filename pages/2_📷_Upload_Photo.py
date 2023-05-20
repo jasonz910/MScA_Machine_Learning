@@ -3,7 +3,6 @@ text = open(filename).read()
 open(filename, 'w+').write(text.replace('keras.engine.topology', 'tensorflow.keras.utils'))
 
 import streamlit as st
-#from streamlit_webrtc import webrtc_streamer
 import cv2
 import numpy as np
 import tensorflow as tf
