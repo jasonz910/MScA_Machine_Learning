@@ -86,6 +86,13 @@ class VideoProcessor:
 
         return av.VideoFrame.from_ndarray(frame_with_bmi, format='bgr24') 
     
+#@st.cache_data
+def prepare_download(img):
+    buf = io.BytesIO()
+    img.save(buf, format='JPEG')
+    image_bytes = buf.getvalue()
+    return image_bytes
+    
 def bmi_segment(bmi):
     if bmi<18.5:
         st.write('**Sorry you are UNDERWEIGHT. Eat More!!🥩**')
@@ -119,6 +126,7 @@ if ctx.video_transformer:
             if out_image is not None:
                 st.write("Your Snapshot:")
                 st.image(out_image, channels="BGR")
+                snap_download = prepare_download(out_image)
             else:
                 st.warning("No frames available yet.")
         
@@ -142,7 +150,7 @@ if ctx.video_transformer:
             if len(bmi_pred)!=0:
                 st.download_button(
                     label="Download Prediction",
-                    data=out_image,
+                    data=snap_download,
                     file_name='Photo_with_BMI.jpg',
                     mime='image/jpeg',
                 )
