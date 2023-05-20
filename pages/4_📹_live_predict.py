@@ -83,3 +83,10 @@ class VideoProcessor:
 st.title('Predict Your BMI Live')
 
 webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False)
+
+hide_default_format = """
+       <style>
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)

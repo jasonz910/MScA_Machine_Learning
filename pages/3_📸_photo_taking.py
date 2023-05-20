@@ -129,6 +129,13 @@ if picture is not None:
             for i in range(len(bmi_pred)):
                 st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
                 bmi_segment(bmi_pred[i])
+
+hide_default_format = """
+       <style>
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
     
     
 

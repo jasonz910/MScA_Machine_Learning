@@ -132,3 +132,10 @@ for upload_file in upload_files:
                 bmi_segment(bmi_pred[i])
     
     index += 1
+
+hide_default_format = """
+       <style>
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
