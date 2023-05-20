@@ -58,7 +58,7 @@ def predict_bmi(frame):
             )
 
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         image = frame[y:y+h, x:x+w]
         img = image.copy()
         img = cv2.resize(img, (224, 224))
@@ -66,7 +66,7 @@ def predict_bmi(frame):
         features = get_fc6_feature(img)
         preds = svr_model.predict(features)
         pred_bmi.append(preds[0])
-        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 5)
+        cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 3, (255, 255, 255), 2)
 
     return pred_bmi
 
