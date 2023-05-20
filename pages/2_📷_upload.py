@@ -94,8 +94,8 @@ for upload_file in upload_files:
     photo, result = st.columns([1, 1])
     
     with photo:
-        st.image(pil_pic_upload)
-        
+        st.image(pil_pic_upload, use_column_width='auto', clamp=True)
+
         pic_download = prepare_download(pil_pic_upload)
         st.download_button(
             label="Download Prediction",
