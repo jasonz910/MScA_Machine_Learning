@@ -118,6 +118,7 @@ if ctx.video_transformer:
     if snap:
         with ctx.video_transformer.frame_lock:
             out_image = ctx.video_transformer.out_image
+            pil_out_image = Image.fromarray(out_image)
             bmi_pred = ctx.video_transformer.pred_bmi
 
         snap, result = st.columns([1,1])
@@ -125,8 +126,8 @@ if ctx.video_transformer:
         with snap:
             if out_image is not None:
                 st.write("Your Snapshot:")
-                st.image(out_image, channels="BGR")
-                snap_download = prepare_download(out_image)
+                st.image(pil_out_image, channels="BGR")
+                snap_download = prepare_download(pil_out_image)
             else:
                 st.warning("No frames available yet.")
         
