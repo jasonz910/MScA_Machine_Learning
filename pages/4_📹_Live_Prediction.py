@@ -109,7 +109,7 @@ def bmi_segment(bmi):
 
 ################################  PAGE CONTENT  ################################
 
-st.markdown("<h1 style='text-align: center; color: #B92708;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #800020;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
 
 ctx = webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={'iceServers': get_ice_servers()})
 

@@ -92,7 +92,7 @@ def bmi_segment(bmi):
 
 ################################  PAGE CONTENT  ################################
 
-st.markdown("<h1 style='text-align: center; color: #B92708;'>Upload Your Photo to Predict</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #800020;'>Upload Your Photo to Predict</h1>", unsafe_allow_html=True)
 
 upload_files = st.file_uploader("👇Upload here:", accept_multiple_files=True)
 

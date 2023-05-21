@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.markdown("<h1 style='text-align: center; color: #B92708;'>BMI Prediction</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #800020;'>BMI Prediction</h1>", unsafe_allow_html=True)
 
 st.caption('This site only gives you BMI prediction. We do not take responsibility for providing accurate and credible BMI results. Thank you!')
 st.caption('All rights reserved by Jason Zhu @ UChicago. If you have any questions, please contact jasonzhu@uchicago.edu')
