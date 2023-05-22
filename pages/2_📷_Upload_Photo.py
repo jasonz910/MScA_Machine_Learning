@@ -64,6 +64,7 @@ def predict_bmi(frame):
         img = cv2.resize(img, (224, 224))
         img = np.array(img).astype(np.float64)
         features = get_feature(img)
+        features = np.reshape(features, (features.shape[0], features.shape[-1]))
         preds = svr_model.predict(features)
         pred_bmi.append(preds[0])
         cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 2, (255, 255, 255), 2)
