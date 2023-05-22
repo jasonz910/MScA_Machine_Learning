@@ -22,7 +22,7 @@ import io
 
 @st.cache_resource(show_spinner=False)
 def load_svr():
-    return joblib.load('svr_model.pkl')
+    return joblib.load('best_svr_model.pkl')
 
 @st.cache_resource(show_spinner=False)
 def load_vggface():

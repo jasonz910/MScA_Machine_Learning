@@ -26,11 +26,11 @@ from typing import Union
 
 @st.cache_resource(show_spinner=False)
 def load_svr():
-    return joblib.load('svr_model.pkl')
+    return joblib.load('best_svr_model.pkl')
 
 @st.cache_resource(show_spinner=False)
 def load_vggface():
-    vggface = VGGFace(model='senet50')
+    vggface = VGGFace(model='senet50', input_shape=(224, 224, 3), pooling='avg')
     vggface_model = Model(inputs=vggface.input, outputs=vggface.get_layer('avg_pool').output)
     return vggface_model
 
@@ -42,7 +42,7 @@ def get_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 
     feature = vggface_model.predict(img)
-    return feature[0][0][0]
+    return feature[0][0]
 
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
