@@ -30,18 +30,19 @@ def load_svr():
 
 @st.cache_resource(show_spinner=False)
 def load_vggface():
-    vggface = VGGFace(model='vgg16', include_top=True, input_shape=(224, 224, 3), pooling='avg')
-    return Model(inputs=vggface.input, outputs=vggface.get_layer('fc6').output)
+    vggface = VGGFace(model='senet50')
+    vggface_model = Model(inputs=vggface.input, outputs=vggface.get_layer('avg_pool').output)
+    return vggface_model
 
 svr_model = load_svr()
 vggface_model = load_vggface()
 
 @st.cache_resource(show_spinner=False)
-def get_fc6_feature(img):
+def get_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 
-    fc6_feature = vggface_model.predict(img)
-    return fc6_feature
+    feature = vggface_model.predict(img)
+    return feature[0][0][0]
 
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -64,7 +65,7 @@ def predict_bmi(frame):
         img = image.copy()
         img = cv2.resize(img, (224, 224))
         img = np.array(img).astype(np.float64)
-        features = get_fc6_feature(img)
+        features = get_feature(img)
         preds = svr_model.predict(features)
         pred_bmi.append(preds[0])
         cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 1, (255, 255, 255), 2)
