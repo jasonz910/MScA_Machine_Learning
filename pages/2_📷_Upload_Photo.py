@@ -39,7 +39,7 @@ def get_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 
     feature = vggface_model.predict(img)
-    return feature[0][0][0]
+    return feature[0][0]
 
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
