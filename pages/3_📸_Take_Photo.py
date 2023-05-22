@@ -39,7 +39,7 @@ def get_feature(img):
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img, version=2) 
     feature = vggface_model.predict(img)
-    return feature[0]
+    return feature
 
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -64,7 +64,8 @@ def predict_bmi(frame):
         img = cv2.resize(img, (224, 224))
         img = np.array(img).astype(np.float64)
         features = get_feature(img)
-        preds = svr_model.predict(features)
+        flat_feature = np.reshape(features, (features.shape[0], features.shape[-1]))
+        preds = svr_model.predict(flat_feature)
         pred_bmi.append(preds[0])
         cv2.putText(frame, f'BMI: {preds}', (x+5, y-5), font, 2, (255, 255, 255), 2)
 
