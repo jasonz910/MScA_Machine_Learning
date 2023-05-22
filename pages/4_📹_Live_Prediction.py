@@ -112,7 +112,7 @@ def bmi_segment(bmi):
 
 st.markdown("<h1 style='text-align: center; color: #800020;'>Predict Your BMI Live</h1>", unsafe_allow_html=True)
 
-ctx = webrtc_streamer(key="example", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={'iceServers': get_ice_servers()})
+ctx = webrtc_streamer(key="live", video_transformer_factory=VideoProcessor, sendback_audio=False, rtc_configuration={'iceServers': get_ice_servers()})
 
 if ctx.video_transformer:
     snap = st.button("Snapshot")
