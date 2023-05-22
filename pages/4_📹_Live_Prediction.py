@@ -122,36 +122,36 @@ if ctx.video_transformer:
             pil_out_image = Image.fromarray(out_image)
             bmi_pred = ctx.video_transformer.pred_bmi
 
-snap, result = st.columns([1,1])
+    snap, result = st.columns([1,1])
 
-with snap:
-    if out_image is not None:
-        st.write("Your Snapshot:")
-        st.image(pil_out_image, use_column_width='auto', clamp=True)
-        snap_download = prepare_download(pil_out_image)
-    else:
-        st.warning("No frames available yet.")
+    with snap:
+        if out_image is not None:
+            st.write("Your Snapshot:")
+            st.image(pil_out_image, use_column_width='auto', clamp=True)
+            snap_download = prepare_download(pil_out_image)
+        else:
+            st.warning("No frames available yet.")
+    
+    with result:
+        if len(bmi_pred)==1:
+            st.markdown('1 face is detected')
+            st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
+            bmi_segment(bmi_pred[0])
+        elif len(bmi_pred)>1:
+            st.markdown(f'{len(bmi_pred)} faces are detected')
+            for i in range(len(bmi_pred)):
+                st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
+                bmi_segment(bmi_pred[i])
+        else:
+            st.markdown("Sorry, something went wrong. Please re-snapshot your photo.")
 
-with result:
-    if len(bmi_pred)==1:
-        st.markdown('1 face is detected')
-        st.write(f'The BMI of this face is: **{round(bmi_pred[0],2)}**')
-        bmi_segment(bmi_pred[0])
-    elif len(bmi_pred)>1:
-        st.markdown(f'{len(bmi_pred)} faces are detected')
-        for i in range(len(bmi_pred)):
-            st.write(f'The BMI for face {i+1} is: **{round(bmi_pred[i],2)}**')
-            bmi_segment(bmi_pred[i])
-    else:
-        st.markdown("Sorry, something went wrong. Please re-snapshot your photo.")
-
-    if len(bmi_pred)!=0:
-        st.download_button(
-            label="Download Prediction",
-            data=snap_download,
-            file_name='Live_BMI_Prediction.jpg',
-            mime='image/jpeg',
-        )
+        if len(bmi_pred)!=0:
+            st.download_button(
+                label="Download Prediction",
+                data=snap_download,
+                file_name='Live_BMI_Prediction.jpg',
+                mime='image/jpeg',
+            )
 
 hide_default_format = """
        <style>
